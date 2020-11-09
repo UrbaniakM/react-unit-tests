@@ -1,13 +1,8 @@
 import * as React from "react";
+import { useLoginApi } from "../hooks/useLoginApi";
 
 export const UserLogin = ({ url }) => {
-  const [responseStatus, setResponseStatus] = React.useState(null);
-
-  const makeApiCall = React.useCallback(async () => {
-    const response = await fetch(url);
-
-    setResponseStatus(response.status);
-  }, [url]);
+  const { responseStatus, makeApiCall } = useLoginApi(url);
 
   return (
     <div>
