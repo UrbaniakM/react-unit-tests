@@ -1,25 +1,36 @@
+import * as React from "react";
 import { Button } from "./Button";
+import { fireEvent, render } from "@testing-library/react";
 
 describe("Button", () => {
   it("renders successfully", () => {
-    // test if button renders successfully
-    // remember about importing React!
-    // use render from @testing-library/react
+    const buttonLabel = "Button label";
 
-    expect(false).toBeTruthy();
+    const { container, getByRole, getByText } = render(<Button>{buttonLabel}</Button>);
+
+    expect(container).toBeDefined();
+
+    expect(getByRole("button")).toBeDefined();
+    expect(getByText(buttonLabel)).toBeDefined();
   });
 
   it("matches snapshot", () => {
-    // create snapshot test
-    // use render from @testing-library/react
+    const { container } = render(<Button>Button label</Button>);
 
-    expect(false).toBeTruthy();
+    expect(container).toMatchSnapshot();
   });
 
   it("on click calls onClick function passed as argument", () => {
-    // test onClick prop being called on click
-    // use render and fireEvent from @testing-library/react
+    const onClickSpy = jest.fn();
+    const { getByRole } = render(<Button onClick={onClickSpy} />);
 
-    expect(false).toBeTruthy();
+    const button = getByRole("button")
+    expect(button).toBeDefined();
+
+    expect(onClickSpy).not.toBeCalled();
+
+    fireEvent.click(button);
+
+    expect(onClickSpy).toBeCalled();
   })
 });
