@@ -1,26 +1,45 @@
+import * as React from "react";
 import { UserLogin } from "./UserLogin";
+import { fireEvent, render } from "@testing-library/react";
+import * as useLoginApiModule from "../hooks/useLoginApi";
 
 describe("UserLogin", () => {
+  const makeApiCallMock = jest.fn();
 
   beforeAll(() => {
-    // Mock responseStatus state and makeApiCall callback here.
-    // To be able to do this, you have to move both of them out of UserLogin component.
+    jest.spyOn(useLoginApiModule, "useLoginApi").mockReturnValue({
+      responseStatus: 200,
+      makeApiCall: makeApiCallMock
+    })
   });
   
   beforeEach(() => {
-    // You will have to check how many times makeApiCall was called, so it's worth to clear mocks between tests.
+    jest.clearAllMocks();
   });
 
   it("renders successfully", () => {
-    // test if user login renders successfully
-    // create snapshot test
+    const url = "https://something.abcd.efgghfsa";
 
-    expect(false).toBeTruthy();
+    const { container, getByText } = render(<UserLogin url={url} />);
+
+    expect(container).toBeDefined();
+    expect(getByText(url)).toBeDefined();
+    expect(container).toMatchSnapshot();
   });
 
   it("on click sends login request to URL passed as prop", () => {
-    // test if makeApiCall was being called on click event
+    const url = "https://something.abcd.efgghfsa";
 
-    expect(false).toBeTruthy();
+    const { container, getByRole, getByText } = render(<UserLogin url={url} />);
+
+    expect(container).toBeDefined();
+    expect(getByText(url)).toBeDefined();
+
+    const button = getByRole("button");
+    expect(button).toBeDefined();
+
+    fireEvent.click(button);
+
+    expect(getByText("200")).toBeDefined();
   })
 });
