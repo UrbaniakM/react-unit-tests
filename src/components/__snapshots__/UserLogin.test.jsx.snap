@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserLogin renders successfully 1`] = `
+<div>
+  <div>
+    Click on the button to log in to 
+    <span>
+      https://something.abcd.efgghfsa
+    </span>
+    <button>
+      Log me in
+    </button>
+    <div>
+      Response status is 
+      <span>
+        200
+      </span>
+    </div>
+  </div>
+</div>
+`;
