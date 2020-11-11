@@ -34,6 +34,7 @@ describe("UserLogin", () => {
 
     expect(container).toBeDefined();
     expect(getByText(url)).toBeDefined();
+    expect(makeApiCallMock).not.toHaveBeenCalled();
 
     const button = getByRole("button");
     expect(button).toBeDefined();
@@ -41,5 +42,6 @@ describe("UserLogin", () => {
     fireEvent.click(button);
 
     expect(getByText("200")).toBeDefined();
+    expect(makeApiCallMock).toHaveBeenCalledTimes(1);
   })
 });
